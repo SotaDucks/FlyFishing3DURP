@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GUL-Runtime</name>
+    </assembly>
+    <members>
+        <member name="T:GUL.Bezier">
+            <summary>
+            A class that defines a bezier curve.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="F:GUL.Bezier.RecalculatedPointsEvent">
+            <summary>A C# event that is invoked when this bezier curve's points are recalculated.</summary>
+        </member>
+        <member name="M:GUL.Bezier.SetBezierPoints(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3,System.Int32)">
+            <summary>
+            Sets the data for the bezier curve.
+            </summary>
+            <param name="pP0"></param>
+            <param name="pP0Handle"></param>
+            <param name="pP1"></param>
+            <param name="pP1Handle"></param>
+            <param name="pPointCount">The number of points to calculate in the bezier.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:GUL.Bezier.GetPointAtTime(System.Single)" -->
+        <member name="M:GUL.Bezier.CalculatePoints(System.Int32,System.Int32)">
+            <summary>
+            Calculates the points of the bezier curve represented by this component's bezier data.
+            NOTE: This populates the 'length' and 'points' fields of this component automatically when invoked.
+            </summary>
+            <param name="pPointCount">The number of points along the bezier curve to calculate.</param>
+            <param name="pPrecision"></param>
+        </member>
+        <member name="T:GUL.TypeReferences.ClassGrouping">
+            <summary>
+            Indicates how selectable classes should be collated in drop-down menu.
+            </summary>
+        </member>
+        <member name="F:GUL.TypeReferences.ClassGrouping.None">
+            <summary>
+            No grouping, just show type names in a list; for instance, "Some.Nested.Namespace.SpecialClass".
+            </summary>
+        </member>
+        <member name="F:GUL.TypeReferences.ClassGrouping.ByNamespace">
+            <summary>
+            Group classes by namespace and show foldout menus for nested namespaces; for
+            instance, "Some > Nested > Namespace > SpecialClass".
+            </summary>
+        </member>
+        <member name="F:GUL.TypeReferences.ClassGrouping.ByNamespaceFlat">
+            <summary>
+            Group classes by namespace; for instance, "Some.Nested.Namespace > SpecialClass".
+            </summary>
+        </member>
+        <member name="F:GUL.TypeReferences.ClassGrouping.ByAddComponentMenu">
+            <summary>
+            Group classes in the same way as Unity does for its component menu. This
+            grouping method must only be used for <see cref="T:UnityEngine.MonoBehaviour"/> types.
+            </summary>
+        </member>
+        <member name="T:GUL.TypeReferences.ClassTypeConstraintAttribute">
+            <summary>
+            Base class for class selection constraints that can be applied when selecting
+            a <see cref="T:GUL.TypeReferences.ClassTypeReference"/> with the Unity inspector.
+            </summary>
+        </member>
+        <member name="P:GUL.TypeReferences.ClassTypeConstraintAttribute.Grouping">
+            <summary>
+            Gets or sets grouping of selectable classes. Defaults to <see cref="F:GUL.TypeReferences.ClassGrouping.ByNamespaceFlat"/>
+            unless explicitly specified.
+            </summary>
+        </member>
+        <member name="P:GUL.TypeReferences.ClassTypeConstraintAttribute.AllowAbstract">
+            <summary>
+            Gets or sets whether abstract classes can be selected from drop-down.
+            Defaults to a value of <c>false</c> unless explicitly specified.
+            </summary>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassTypeConstraintAttribute.IsConstraintSatisfied(System.Type)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Type"/> satisfies filter constraint.
+            </summary>
+            <param name="type">Type to test.</param>
+            <returns>
+            A <see cref="T:System.Boolean"/> value indicating if the type specified by <paramref name="type"/>
+            satisfies this constraint and should thus be selectable.
+            </returns>
+        </member>
+        <member name="T:GUL.TypeReferences.ClassExtendsAttribute">
+            <summary>
+            Constraint that allows selection of classes that extend a specific class when
+            selecting a <see cref="T:GUL.TypeReferences.ClassTypeReference"/> with the Unity inspector.
+            </summary>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassExtendsAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GUL.TypeReferences.ClassExtendsAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassExtendsAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GUL.TypeReferences.ClassExtendsAttribute"/> class.
+            </summary>
+            <param name="baseType">Type of class that selectable classes must derive from.</param>
+        </member>
+        <member name="P:GUL.TypeReferences.ClassExtendsAttribute.BaseType">
+            <summary>
+            Gets the type of class that selectable classes must derive from.
+            </summary>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassExtendsAttribute.IsConstraintSatisfied(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:GUL.TypeReferences.ClassImplementsAttribute">
+            <summary>
+            Constraint that allows selection of classes that implement a specific interface
+            when selecting a <see cref="T:GUL.TypeReferences.ClassTypeReference"/> with the Unity inspector.
+            </summary>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassImplementsAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GUL.TypeReferences.ClassImplementsAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassImplementsAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GUL.TypeReferences.ClassImplementsAttribute"/> class.
+            </summary>
+            <param name="interfaceType">Type of interface that selectable classes must implement.</param>
+        </member>
+        <member name="P:GUL.TypeReferences.ClassImplementsAttribute.InterfaceType">
+            <summary>
+            Gets the type of interface that selectable classes must implement.
+            </summary>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassImplementsAttribute.IsConstraintSatisfied(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:GUL.TypeReferences.ClassTypeReference">
+            <summary>
+            Reference to a class <see cref="T:System.Type"/> with support for Unity serialization.
+            </summary>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassTypeReference.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:GUL.TypeReferences.ClassTypeReference"/> class.
+            </summary>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassTypeReference.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GUL.TypeReferences.ClassTypeReference"/> class.
+            </summary>
+            <param name="assemblyQualifiedClassName">Assembly qualified class name.</param>
+        </member>
+        <member name="M:GUL.TypeReferences.ClassTypeReference.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:GUL.TypeReferences.ClassTypeReference"/> class.
+            </summary>
+            <param name="type">Class type.</param>
+            <exception cref="T:System.ArgumentException">
+            If <paramref name="type"/> is not a class type.
+            </exception>
+        </member>
+        <member name="P:GUL.TypeReferences.ClassTypeReference.Type">
+            <summary>
+            Gets or sets type of class reference.
+            </summary>
+            <exception cref="T:System.ArgumentException">
+            If <paramref name="value"/> is not a class type.
+            </exception>
+        </member>
+        <member name="T:GUL.Collections.Generic.ObservedList`1">
+            <summary>
+            A type that provides a List with C# events that are invoked whenever the list is changed or updated.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="E:GUL.Collections.Generic.ObservedList`1.Changed">
+            <summary>An event that is invoked when the list is changed. (Arg0: int - the pIndex of the changed element)</summary>
+        </member>
+        <member name="E:GUL.Collections.Generic.ObservedList`1.Updated">
+            <summary>An event that is invoked when the list is updated.</summary>
+        </member>
+        <member name="M:GUL.PathHelper.GetExecutablePath(System.Boolean)">
+            <summary>
+            Returns the path of the executable file on most platofrms, returns the base project folder when in the editor.
+            Return value: "../" + Application.dataPath;
+            </summary>
+        </member>
+        <member name="M:GUL.PathHelper.GetModdingPath">
+            <summary>
+            Returns the path to the modding folder for the game.
+            </summary>
+        </member>
+        <member name="M:GUL.PathHelper.GetDownloadsPath">
+            <summary>
+            Returns the path to the download folder for the game.
+            </summary>
+        </member>
+        <member name="M:GUL.PathHelper.GetTemporaryPath">
+            <summary>
+            Returns the path to the temporary folder for the game.
+            </summary>
+        </member>
+        <member name="M:GUL.StringHelper.RemoveRichText(System.String)">
+            <summary>
+            Removes the rich text from the given input string.
+            </summary>
+            <param name="pInput"></param>
+            <returns>A version of the given input string with the rich text tags removed.</returns>
+        </member>
+        <member name="M:GUL.StringHelper.RemoveRichTextDynamicTag(System.String,System.String)">
+            <summary>
+            Removes the rich text dynamic tag pTag from pInput and returns the string.
+            </summary>
+            <param name="pInput"></param>
+            <param name="pTag">The dynamic rich text tag to remove.</param>
+            <returns>A string that is equal to pInput with the given dynamic rich text tag removed.</returns>
+        </member>
+        <member name="M:GUL.StringHelper.RemoveRichTextTag(System.String,System.String,System.Boolean)">
+            <summary>
+            Removes the rich text tag pTag from pInput and returns the resulting string.
+            
+            WARNING: This method called while pIsStart == true will automatically remove the ending tag.
+            </summary>
+            <param name="pInput"></param>
+            <param name="pTag">The rich text tag to remove.</param>
+            <param name="pIsStart">Is this a start rich text tag? if yes true, otherwise false.</param>
+            <returns>A string that is equal to pInput with the rich text tag pTag removed.</returns>
+        </member>
+        <member name="M:GUL.StringHelper.SubstringToNewline(System.String)">
+            <summary>
+            Given a string pText, returns a substring representing pText up to the first new line (or carriage return followed by newline) character.
+            </summary>
+            <param name="pText"></param>
+            <returns>a substring representing pText up to the first new line (or carriage return followed by newline) character.</returns>
+        </member>
+        <member name="T:GUL.ReadOnlyAtRuntimeAttribute">
+            <summary>
+            Display a field as read-only at runtime in the inspector.
+            CustomPropertyDrawers will not work during runtime when this attribute is used.
+            </summary>
+            <seealso cref="T:GUL.BeginReadOnlyAtRuntimeGroupAttribute"/>
+            <seealso cref="T:GUL.EndReadOnlyAtRuntimeGroupAttribute"/>
+        </member>
+        <member name="T:GUL.BeginReadOnlyAtRuntimeGroupAttribute">
+            <summary>
+            Display one or more fields as read-only at runtime in the inspector.
+            Use <see cref="T:GUL.EndReadOnlyAtRuntimeGroupAttribute"/> to close the group.
+            Works with CustomPropertyDrawers.
+            </summary>
+            <seealso cref="T:GUL.EndReadOnlyAtRuntimeGroupAttribute"/>
+            <seealso cref="T:GUL.ReadOnlyAtRuntimeAttribute"/>
+        </member>
+        <member name="T:GUL.EndReadOnlyAtRuntimeGroupAttribute">
+            <summary>
+            Use with <see cref="T:GUL.BeginReadOnlyAtRuntimeGroupAttribute"/>.
+            Close the read-only at runtime group and resume editable fields.
+            </summary>
+            <seealso cref="T:GUL.BeginReadOnlyAtRuntimeGroupAttribute"/>
+            <seealso cref="T:GUL.ReadOnlyAtRuntimeAttribute"/>
+        </member>
+        <member name="T:GUL.ReadOnlyAttribute">
+            <summary>
+            Display a field as read-only in the inspector.
+            CustomPropertyDrawers will not work when this attribute is used.
+            </summary>
+            <seealso cref="T:GUL.BeginReadOnlyGroupAttribute"/>
+            <seealso cref="T:GUL.EndReadOnlyGroupAttribute"/>
+        </member>
+        <member name="T:GUL.BeginReadOnlyGroupAttribute">
+            <summary>
+            Display one or more fields as read-only in the inspector.
+            Use <see cref="T:GUL.EndReadOnlyGroupAttribute"/> to close the group.
+            Works with CustomPropertyDrawers.
+            </summary>
+            <seealso cref="T:GUL.EndReadOnlyGroupAttribute"/>
+            <seealso cref="T:GUL.ReadOnlyAttribute"/>
+        </member>
+        <member name="T:GUL.EndReadOnlyGroupAttribute">
+            <summary>
+            Use with <see cref="T:GUL.BeginReadOnlyGroupAttribute"/>.
+            Close the read-only group and resume editable fields.
+            </summary>
+            <seealso cref="T:GUL.BeginReadOnlyGroupAttribute"/>
+            <seealso cref="T:GUL.ReadOnlyAttribute"/>
+        </member>
+        <member name="T:GUL.SceneReference">
+            <summary>
+            A wrapper that provides the means to safely serialize Scene Asset References.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="P:GUL.SceneReference.ScenePath">
+            <summary>
+            A read-only get accessor for scenePath.
+            </summary>
+        </member>
+    </members>
+</doc>

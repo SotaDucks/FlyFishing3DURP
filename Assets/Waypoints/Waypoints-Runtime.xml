@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Waypoints-Runtime</name>
+    </assembly>
+    <members>
+        <member name="T:Waypoints.Mathematics.MathUtility">
+            <summary>
+            A public static class that provides helper math-related functions.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="M:Waypoints.Mathematics.MathUtility.Clamp``1(``0,``0,``0)">
+            <summary>A function that takes a IComparable value and clamps it to a value between pMinimum and pMaximum inclusively.</summary>
+            <typeparam name="T"></typeparam>
+            <param name="pValue"></param>
+            <param name="pMinimum"></param>
+            <param name="pMaximum"></param>
+            <returns>the clamped IComparable value.</returns>
+        </member>
+        <member name="F:Waypoints.Pathing.IInterpolator.control">
+            <summary>An array of control point positions.</summary>
+        </member>
+        <member name="F:Waypoints.Pathing.IInterpolator.closed">
+            <summary>Is the control points array a closed loop?</summary>
+        </member>
+        <member name="F:Waypoints.Pathing.IInterpolator.length">
+            <summary>The number of control points.</summary>
+        </member>
+        <member name="T:Waypoints.Pathing.InvokeEventIfPathMoveProgressionIs">
+            <summary>
+            A component that invokes an event when when InvokeIf is called only if the referenced PathMove's pathing progression field compared to the 'triggerValue' using the set operation yields a true result.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="M:Waypoints.Pathing.InvokeEventIfPathMoveProgressionIs.InvokeIf">
+            <summary>
+            A public method that invokes the 'Triggered' event if it is called when the referenced PathMove's pathing progression field compared to the 'triggerValue' using the set operation yields a true result.
+            </summary>
+        </member>
+        <member name="T:Waypoints.Pathing.InvokeEventOnWaypointReachedByPathMove">
+            <summary>
+            A component that invokes an event when a waypoint is reached by a pathing PathMove.
+            NOTE: This component will only be triggered if it is enabled.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="M:Waypoints.Pathing.InvokeEventOnWaypointReachedByPathMove.NotifyWaypointReached(Waypoints.Pathing.PathMove)">
+            <summary>
+            A public method that is used to notify this component when the associated waypoint is reached.
+            </summary>
+            <param name="pPathMove"></param>
+        </member>
+        <member name="T:Waypoints.Pathing.PathMove">
+            <summary>
+            An abstract class that is the base class for all path movers that use the pathing library.
+            
+            Only one PathMove is allowed per GameObject.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="P:Waypoints.Pathing.PathMove.WaypointCount">
+            <summary>Returns the number of waypoints this path move has configured.</summary>
+        </member>
+        <member name="P:Waypoints.Pathing.PathMove.PathingProgression">
+            <summary>An accessor that allows the pathing progression (m_U) variable of a PathMove component to be both read and modified.</summary>
+        </member>
+        <member name="P:Waypoints.Pathing.PathMove.Interpolator">
+            <summary>Returns the IInterpolator associated with this component.</summary>
+        </member>
+        <member name="P:Waypoints.Pathing.PathMove.InterpolatorType">
+            <summary>A reference to the InterpolationMode used to create the 'Interpolator'. Only consider this valid when the 'Interpolator' is non-null.</summary>
+        </member>
+        <member name="P:Waypoints.Pathing.PathMove.IsPathingPaused">
+            <summary>Is the PathMove's pathing paused? (NOTE: This pauses only translations, not rotations.)</summary>
+        </member>
+        <member name="P:Waypoints.Pathing.PathMove.ShouldDrawGizmo">
+            <summary>Only relevant in the editor, this is set to true every OnDrawGizmos() call... the gizmo drawer sets it to false, this allows gizmos to still be toggled using the editor dropdown.</summary>
+        </member>
+        <member name="F:Waypoints.Pathing.PathMove.m_U">
+            <summary>The variable that controls how the waypoint the PathMove is on and far along we are between waypoints.</summary>
+        </member>
+        <member name="F:Waypoints.Pathing.PathMove.m_LastUFire">
+            <summary>The last whole number 'U' value that was fired, aka the last waypoint that was reached.</summary>
+        </member>
+        <member name="F:Waypoints.Pathing.PathMove.m_Waypoints">
+            <summary>A list of waypoints. the gameObject should move between."</summary>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.InitializeInterpolator">
+            <summary>(Re)initializes the interpolator for this PathMove.</summary>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.SetPathingPaused(System.Boolean)">
+            <summary>Controls whether or not Pathing is paused for a PathMove component.</summary>
+            <param name="pPaused"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.SetPathingProgression(System.Single)">
+            <summary>
+            Allows the PathMove's pathing progression variable to be set.
+            NOTE: pProgression is clamped between 0f and (float)waypoints.length
+            </summary>
+            <param name="pProgression"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.AddWaypoint(UnityEngine.Transform)">
+            <summary>
+            Adds a waypoint at the end of the waypoints array.
+            NOTE: This method only adds a waypoint by reference it does not instantiate any object.
+            </summary>
+            <param name="pWaypoint">The waypoint to add.</param>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.AddWaypointAtIndex(System.Int32,UnityEngine.Transform)">
+            <summary>
+            Adds a waypoint at the given index in the waypoints array, shifting array elements and expanding the array as neccesary.
+            NOTE: pIndex can not be greater than WaypointCount but no error checking is performed.
+            NOTE: When pIndex == WaypointCount this adds a waypoint at the end of the array and shifts no elements.
+            NOTE: This method only adds a waypoint at the specified index by reference and shuffles the waypoints array, it does not instantiate any object.
+            </summary>
+            <param name="pIndex"></param>
+            <param name="pWaypoint">The waypoint to add at pIndex.</param>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.SetWaypointByIndex(System.Int32,UnityEngine.Transform)">
+            <summary>
+            Sets the waypoint Transform reference at the given index, pIndex, in the waypoints array to pWaypoint.
+            </summary>
+            <param name="pIndex"></param>
+            <param name="pWaypoint"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.RemoveWaypointByIndex(System.Int32)">
+            <summary>
+            Removes the waypoint at the given index in the waypoints array, shifting elements above it down in the array.
+            NOTE: This method DOES NOT destroy the waypoint object, it simply removes it from the waypoints array.
+            </summary>
+            <param name="pIndex"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.GetWaypointByIndex(System.Int32)">
+            <summary>
+            Returns the Transform of the waypoint at the given index, pIndex, in the waypoints array.
+            NOTE: This method performs no error checking.
+            </summary>
+            <param name="pIndex"></param>
+            <returns>the Transform of the waypoint at the given index, pIndex, in the waypoints array.</returns>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.ForceMoveToWaypoint(System.Int32)">
+            <summary>
+            Force the position of the transform of the PathMove to the position of the waypoint in the index.
+            This only forces the position and will instantly be overridden by an active path move.
+            
+            NOTE: This WILL NOT invoke any waypoint reached events.
+            </summary>
+            <param name="pPointIndex"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.IsInterpolatorValid">
+            <summary>Returns true if the PathMove's interpolator is valid and matching the waypoint settings, otherwise false.</summary>
+            <returns>true if the PathMove's interpolator is valid and matching the waypoint settings, otherwise false.</returns>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.OnWaypointReached(System.Int32)">
+            <summary>
+            A callback that is intended to be invoked by a PathMove when it reaches a waypoint.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.TeleportToWaypoint(System.Int32)">
+            <summary>
+            Allows the PathMove to be teleported directly to a waypoint instantly.
+            </summary>
+            <param name="pIndex"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMove.Notify_WaypointReached(System.Int32)">
+            <summary>
+            Checks if a waypoint has been reached. This public method can be used in things like the teleport system to update the checkpoint reached status after teleporting.
+            </summary>
+        </member>
+        <member name="T:Waypoints.Pathing.RigidbodyPathMove">
+            <summary>
+            A component for moving a rigidbody along waypoints.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="M:Waypoints.Pathing.RigidbodyPathMove.IsInterpolatorValid">
+            <summary>Returns true if the RigidbodyPathMove's interpolator is valid and matching the waypoint settings, otherwise false.</summary>
+            <returns>true if the RigidbodyPathMove's interpolator is valid and matching the waypoint settings, otherwise false.</returns>
+        </member>
+        <member name="M:Waypoints.Pathing.RigidbodyPathMove.ForceMoveToWaypoint(System.Int32)">
+            <summary>
+            Force the position of the transform of the PathMove to the position of the waypoint in the index.
+            This only forces the position and will instantly be overridden by an active path move.
+            
+            NOTE: This WILL NOT invoke any waypoint reached events.
+            </summary>
+            <param name="pPointIndex"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.RigidbodyPathMove.TeleportToWaypoint(System.Int32)">
+            <summary>Allows the RigidbodyPathMove to be teleported directly to a waypoint instantly.</summary>
+            <param name="pIndex"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.RigidbodyPathMove.UseForwardToPointRotation">
+            <summary>Sets the rotation mode to 'forward to point'.</summary>
+        </member>
+        <member name="M:Waypoints.Pathing.RigidbodyPathMove.UseCopyPointRotation">
+            <summary>Sets the rotation mode to 'copy waypoint'.</summary>
+        </member>
+        <member name="M:Waypoints.Pathing.RigidbodyPathMove.UseInterpolateWaypointRotation">
+            <summary>Sets the rotation mode to 'interpolate waypoint'.</summary>
+        </member>
+        <member name="M:Waypoints.Pathing.RigidbodyPathMove.SetMoveSpeed(System.Single)">
+            <summary>Sets the movement speed of the RigidbodyPathMove in meters per second.</summary>
+            <param name="pSpeed"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.RigidbodyPathMove.SetSpeedMultiplier(System.Single)">
+            <summary>Sets the speedMutliplier field of this component. Useful for use with Unity editor events.</summary>
+            <param name="pMultiplier"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.RigidbodyPathMove.SetRotationSpeed(System.Single)">
+            <summary>Sets the rotation speed of the RigidbodyPathMove in degrees per second.</summary>
+            <param name="pDegreesPerSecond"></param>
+        </member>
+        <member name="T:Waypoints.Pathing.PathMovePauser">
+            <summary>
+            A component that provides an easy way to pause a PathMove component for time.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="F:Waypoints.Pathing.PathMovePauser.m_UnpauseTime">
+            <summary>The Time.time the PathMove component will be unpaused at.</summary>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMovePauser.Pause">
+            <summary>
+            Pauses the referenced PathMove til it's manually unpaused.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMovePauser.PauseFor(System.Single)">
+            <summary>
+            Pauses the referenced PathMove for a given number of seconds.
+            </summary>
+            <param name="pSeconds"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.PathMovePauser.Unpause">
+            <summary>
+            Unpauses the referenced PathMove.
+            </summary>
+        </member>
+        <member name="T:Waypoints.Pathing.TransformPathMove">
+            <summary>
+            A component for moving a Transform along waypoints.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="P:Waypoints.Pathing.TransformPathMove.MoveTransform">
+            <summary>
+            Returns the Transform that will be moved by this component.
+            </summary>
+        </member>
+        <member name="P:Waypoints.Pathing.TransformPathMove.LastTargetDirection">
+            <summary>
+            Returns the last calculated target heading / target direction for this component.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Pathing.TransformPathMove.IsInterpolatorValid">
+            <summary>Returns true if the TransformPathMove's interpolator is valid and matching the waypoint settings, otherwise false.</summary>
+            <returns>true if the TransformPathMove's interpolator is valid and matching the waypoint settings, otherwise false.</returns>
+        </member>
+        <member name="M:Waypoints.Pathing.TransformPathMove.ForceMoveToWaypoint(System.Int32)">
+            <summary>
+            Force the position of the transform of the PathMove to the position of the waypoint in the index.
+            This only forces the position and will instantly be overridden by an active path move.
+            
+            NOTE: This WILL NOT invoke any waypoint reached events.
+            </summary>
+            <param name="pPointIndex"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.TransformPathMove.TeleportToWaypoint(System.Int32)">
+            <summary>Allows the TransformPathMove to be teleported directly to a waypoint instantly.</summary>
+            <param name="pIndex"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.TransformPathMove.UseForwardToPointRotation">
+            <summary>
+            Sets the rotation mode to 'forward to point'.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Pathing.TransformPathMove.UseCopyPointRotation">
+            <summary>
+            Sets the rotation mode to 'copy waypoint'.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Pathing.TransformPathMove.UseInterpolateWaypointRotation">
+            <summary>
+            Sets the rotation mode to 'interpolate waypoint'.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Pathing.TransformPathMove.SetMoveSpeed(System.Single)">
+            <summary>
+            Sets the movement speed of the TransformPathMove in meters per second.
+            </summary>
+            <param name="pSpeed"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.TransformPathMove.SetSpeedMultiplier(System.Single)">
+            <summary>Sets the speedMutliplier field of this component. Useful for use with Unity editor events.</summary>
+            <param name="pMultiplier"></param>
+        </member>
+        <member name="M:Waypoints.Pathing.TransformPathMove.SetRotationSpeed(System.Single)">
+            <summary>
+            Sets the rotation speed of the TransformPathMove in degrees per second.
+            </summary>
+            <param name="pDegreesPerSecond"></param>
+        </member>
+        <member name="F:Waypoints.InterpolationMode.Linear">
+            <summary>A linear interpolator.</summary>
+        </member>
+        <member name="F:Waypoints.InterpolationMode.BSpline">
+            <summary>A b-spline interpolator.</summary>
+        </member>
+        <member name="F:Waypoints.InterpolationMode.CatmullRom">
+            <summary>A catmull-rom interpolator.</summary>
+        </member>
+        <member name="F:Waypoints.PathMode.Closed">
+            <summary>A closed loop.</summary>
+        </member>
+        <member name="F:Waypoints.PathMode.StopAtEnd">
+            <summary>Stop pathing at the end.</summary>
+        </member>
+        <member name="F:Waypoints.PathMode.PingPong">
+            <summary>Ping pong back and forth between the waypoints.</summary>
+        </member>
+        <member name="F:Waypoints.RotationMode.None">
+            <summary>When pathing will not rotate.</summary>
+        </member>
+        <member name="F:Waypoints.RotationMode.ForwardToPoint">
+            <summary>When pathing will make the forward direction always face the waypoint.</summary>
+        </member>
+        <member name="F:Waypoints.RotationMode.CopyWaypoint">
+            <summary>When pathing will make the rotation move towards the waypoints rotation.</summary>
+        </member>
+        <member name="F:Waypoints.RotationMode.InterpolateWaypoint">
+            <summary>When pathing will rotate towards an interpolated rotation between the last activated and next waypoint.</summary>
+        </member>
+    </members>
+</doc>

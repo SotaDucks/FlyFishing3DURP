@@ -1,0 +1,392 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Waypoints-Editor</name>
+    </assembly>
+    <members>
+        <member name="T:Waypoints.Editor.Pathing.RigidbodyPathMoveEditor">
+            <summary>
+            A custom Editor for RigidbodyPathMove components.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="T:Waypoints.Editor.Pathing.TransformPathMoveEditor">
+            <summary>
+            A custom Editor for TransformPathMove components.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="T:Waypoints.Editor.Pathing.PathMoveEditorSettings">
+            <summary>
+            A public static class that stores settings for the 'Path Move Editor'.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="T:Waypoints.Editor.Pathing.PathMoveEditorSettings.SettingsData">
+            <summary>Defines the settings for the PathMoveEditorSettings static class.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettings.SettingsData.autoRenameWaypoints">
+            <summary>Should waypoints be automatically renamed after adding or removing waypoints using the editor?</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettings.SettingsData.autoGenWaypointMaterial">
+            <summary>The material to use for automatically generated waypoints..</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettings.EDITOR_PREFS_STRING_GLOBAL">
+            <summary>The string name the 'Global' path move editor settings are saved under in 'EditorPrefs'.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettings.DEFAULT_MATERIAL_PATH">
+            <summary>The default waypoint material path for generated waypoints.</summary>
+        </member>
+        <member name="P:Waypoints.Editor.Pathing.PathMoveEditorSettings.Global">
+            <summary>The global path move editor settings.</summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorSettings.SaveEditorPrefs">
+            <summary>Saves the editor preferences for the 'Path Move Editor Settings'.</summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorSettings.LoadEditorPrefs">
+            <summary>Loads the editor preferences for the 'Path Move Editor Settings'.</summary>
+        </member>
+        <member name="T:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow">
+            <summary>
+            A window where path move gizmo settings can be modified.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.autoRenameWaypoints">
+            <summary>Should waypoints be automatically renamed after adding or removing waypoints using the editor?</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.autoGenWaypointMaterial">
+            <summary>The Material to use for auto-generated waypoints.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.m_WaypointEditorSettingsGroupEnabled">
+            <summary>Is the waypoint editor settings dropdown enabled?</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.waypointSphereRadius">
+            <summary>The radius used to render PathMove Waypoint sphere gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.waypointSphereColor">
+            <summary>The color used to render PathMove Waypoint sphere gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.highlightedWaypointSphereColor">
+            <summary>The color used to render highlighted PathMove Waypoint sphere gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.waypointLabelFontSize">
+            <summary>The font size used to render PathMove Waypoint label gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.waypointLabelFontColor">
+            <summary>The font color used to render PathMove Waypoint label gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.highlightedWaypointLabelFontColor">
+            <summary>The font color used to render highlighted PathMove Waypoint label gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.m_WaypointGizmoSettingsGroupEnabled">
+            <summary>Is the waypoint gizmo settings dropdown enabled?</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.pathDotsPerUnit">
+            <summary>The number of path visualization dots per distance unit.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.pathDotSphereGizmoRadius">
+            <summary>The radius of the path visualization dot sphere gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.pathDotSphereStartColor">
+            <summary>The color of the path visualization dot sphere gizmos at the start of a path.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.pathDotSphereEndColor">
+            <summary>The color of the path visualization dot sphere gizmos at the end of a path.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.closedPathDotSphereGizmoColor">
+            <summary>The color of the path visualization dot sphere gizmos that mark a closed pathing loop.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.m_PathVisualizationSettingsGroupEnabled">
+            <summary>Is the path visualization settings dropdown enabled?</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.MINIMUM_FONT_SIZE">
+            <summary>The minimum font size for gizmo labels.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.MAXIMUM_FONT_SIZE">
+            <summary>The maximum font size for gizmo labels.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.MINIMUM_DOTS_PER_UNIT">
+            <summary>The minimum number of path visualization dots per unit.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.MAXIMUM_DOTS_PER_UNIT">
+            <summary>The maximum number of path visualization dots per unit.</summary>
+        </member>
+        <member name="E:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.Initialized">
+            <summary>A C# delegate event that is invoked when the PathMoveEditorSettingsWindow is intialized.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.m_ScrollPosition">
+            <summary>The scroll position for the editor window.</summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.OverwriteGlobalSettings">
+            <summary>Overwrites the PathMoveGizmo and PathMoveEditorSettings static classes' settings with the ones from this PathMoveEditorSettingsWindow.</summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.OverwriteLocalSettings">
+            <summary>Overwrites the editor window's settings with the relevant static classes' settings.</summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorSettingsWindow.ResetGlobalSettings">
+            <summary>Resets and overwrites the PathMoveGizmo and PathMoveEditorSettings static classes' settings with the ones from this PathMoveEditorSettingsWindow.</summary>
+        </member>
+        <member name="T:Waypoints.Editor.Pathing.PathMoveEditorWindow">
+            <summary>
+            A tool designed to make it even easier to edit waypoints.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.WaypointType.AutoGenerate">
+            <summary>Automatically generate visual waypoint.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.WaypointType.Prefab">
+            <summary>Use prefab to place visual waypoint.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.WaypointType.Empty">
+            <summary>A waypoint with no visual.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.WaypointSpawnPoint.PreviousWaypoint">
+            <summary>Spawn the waypoint positioned and rotated to match the previous waypoint if possible, otherwise falls back to mover.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.WaypointSpawnPoint.Mover">
+            <summary>Spawn the waypoint positioned and rotated to match the mover.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.waypointName">
+            <summary>The name to give to waypoints created using the editor.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.waypointContainer">
+            <summary>A reference to a Transform to store created waypoints in.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.waypointSpawn">
+            <summary>
+            Controls how waypoints are spawned.
+            Mover - Spawn the waypoint positioned and rotated to match the mover.
+            PreviousWaypoint - Spawn the waypoint positioned and rotated to match the previous waypoint if possible, otherwise falls back to mover.
+            </summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.waypointType">
+            <summary>
+            The type of waypoint to create.
+            AutoGenerate - Automatically generate visual waypoint.
+            Prefab - Use prefab to place visual waypoint.
+            Empty - A waypoint with no visual.
+            </summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.waypointPrefab">
+            <summary>A reference to the prefab that is used when making 'Prefab' waypoints.</summary>
+        </member>
+        <member name="P:Waypoints.Editor.Pathing.PathMoveEditorWindow.EditingPathMove">
+            <summary>A reference to the PathMove currently being edited, or null.</summary>
+        </member>
+        <member name="P:Waypoints.Editor.Pathing.PathMoveEditorWindow.EditingWaypointIndex">
+            <summary>Returns the index of the waypoint currently being edited in the EditingPathMove.waypoints array, or -1.</summary>
+        </member>
+        <member name="P:Waypoints.Editor.Pathing.PathMoveEditorWindow.EditingWaypoint">
+            <summary>Returns the Transform for the waypoint currently being edited, or null.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.DEFAULT_WAYPOINT_NAME">
+            <summary>The default name for waypoints.</summary>
+        </member>
+        <member name="E:Waypoints.Editor.Pathing.PathMoveEditorWindow.Initialized">
+            <summary>An event that is invoked when the PathMoveEditorWindow is intialized.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.m_PathMoveSettingsGroupEnabled">
+            <summary>Is the PathMove settings dropdown enabled?</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.m_WaypointEditorGroupEnabled">
+            <summary>Is the waypoint settings dropdown enabled?</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.m_ScrollPosition">
+            <summary>The scroll position for the editor window.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.m_EditingPathMove">
+            <summary>The hidden backing field for the 'EditingPathMove' property.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.m_EditingWaypointIndex">
+            <summary>The hidden backing field for the 'EditingWaypointIndex' property.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.m_SelectedWaypointReachedEventComponent">
+            <summary>A reference to the component the 'SelectedWaypointReachedEventEditor' was created for.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveEditorWindow.m_SelectedWaypointReachedEventEditor">
+            <summary>The 'waypoint reached event' editor being displayed for the selected waypoint.</summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.AddWaypoint(System.Boolean)">
+            <summary>Adds a waypoint at the end of 'EditingPathMove.waypoints' array.</summary>
+            <param name="pSelectWaypoint">Make the newly added waypoint the active selection?</param>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.AddWaypointAtIndex(System.Int32,System.Boolean)">
+            <summary>
+            Adds a waypoint at the given index in the 'EditingPathMove.waypoints' array, shifting array elements and expanding the array as neccesary.
+            NOTE: pIndex can not be greater than EditingPathMove.WaypointCount.
+            NOTE: When pIndex == EditingPathMove.WaypointCount this adds a waypoint at the end of the array and shifts no elements.
+            </summary>
+            <param name="pIndex"></param>
+            <param name="pSelectWaypoint">Make the newly added waypoint the active selection?</param>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.RemoveWaypointByIndex(System.Int32,System.Boolean)">
+            <summary>Removes the waypoint at the given index in the 'EditingPathMove.waypoints' array, shifting elements above it down in the array.</summary>
+            <param name="pIndex"></param>
+            <param name="pSelectWaypoint">Automatically make the previous waypoint (if valid) or next waypoint (if valid) the active selection?</param>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.SelectPreviousWaypoint">
+            <summary>
+            Selects the previous waypoint in 'EditingPathMove.waypoints' before EditingWaypointIndex.
+            NOTE: Does nothing if 'EditingPathMove' is null, or if the waypoints array is null or empty.
+            NOTE: This method automatically wraps the selection.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.SelectNextWaypoint">
+            <summary>
+            Selects the next waypoint in 'EditingPathMove.waypoints' after EditingWaypointIndex.
+            NOTE: Does nothing if 'EditingPathMove' is null, or if the waypoints array is null or empty.
+            NOTE: This method automatically wraps the selection.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.ValidateContainerComponents">
+            <summary>
+            Ensures the 'waypointContainer' contains the components specifeid in the editor. If they are missing they are added.
+            Registers undo group upon adding component.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.ValidateWaypointComponents">
+            <summary>
+            Ensures all waypoints of 'EditingPathMove' contain the components specified in the editor. If they are missing they are added.
+            Registers undo group upon adding component.
+            </summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.RenameWaypoints">
+            <summary>Renames all waypoints in 'EditingPathMove' by number while also registering an undo group.</summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.InstantiateWaypoint(System.Int32)">
+            <summary>Instantiates a waypoint based on the current settings and returns the Transform, or null if failed.</summary>
+            <param name="pIndex">The index the instantiated waypoint will be in.</param>
+            <returns>The Tranasform of the instantiated waypoint, or null.</returns>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveEditorWindow.DrawSelectedWaypointReachedEventEditor(Waypoints.Pathing.InvokeEventOnWaypointReachedByPathMove)">
+            <summary>When invoked in OnGUI draws the 'Editor' for the InvokeEventOnWaypointReachedByPathMove component specified.</summary>
+            <param name="pComponent"></param>
+        </member>
+        <member name="T:Waypoints.Editor.Pathing.PathMoveGizmo">
+            <summary>
+            Draws editor gizmos for PathMoves.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="T:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData">
+            <summary>Defines the settings for the PathMoveEditorSettings static class.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.waypointSphereRadius">
+            <summary>The radius used to render PathMove Waypoint sphere gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.waypointSphereColor">
+            <summary>The color used to render PathMove Waypoint sphere gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.highlightedWaypointSphereColor">
+            <summary>The color used to render highlighted PathMove Waypoint sphere gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.waypointLabelFontSize">
+            <summary>The font size used to render PathMove Waypoint label gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.waypointLabelFontColor">
+            <summary>The font color used to render PathMove Waypoint label gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.highlightedWaypointLabelFontColor">
+            <summary>The font color used to render highlighted PathMove Waypoint label gizmos.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.pathDotsPerUnit">
+            <summary>How many dots should their be per distance unit? A value of 0 means no path visualization.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.pathDotSphereGizmoRadius">
+            <summary>The radius of path visualization sphere gizmo dots.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.pathDotSphereStartColor">
+            <summary>The color of path visualization sphere gizmo dots at the start of a path.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.pathDotSphereEndColor">
+            <summary>The color of path visualization sphere gizmo dots at the end of a path.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.SettingsData.closedPathDotSphereGizmoColor">
+            <summary>The color of closed loop path visualization sphere gizmo dots.</summary>
+        </member>
+        <member name="P:Waypoints.Editor.Pathing.PathMoveGizmo.ForceDrawPathMoveGizmos">
+            <summary>A reference to a PathMove to forcefully draw gizmos for.</summary>
+        </member>
+        <member name="P:Waypoints.Editor.Pathing.PathMoveGizmo.HighlightWaypoint">
+            <summary>A reference to the Transform of the waypoint that should be highlighted, or null.</summary>
+        </member>
+        <member name="F:Waypoints.Editor.Pathing.PathMoveGizmo.EDITOR_PREFS_STRING_SETTINGS">
+            <summary>The string name the 'Settings' path move gizmo settings are saved under in 'EditorPrefs'.</summary>
+        </member>
+        <member name="P:Waypoints.Editor.Pathing.PathMoveGizmo.Settings">
+            <summary>The settings for path move gizmos.</summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveGizmo.DrawPathVisualization(Waypoints.Pathing.PathMove,System.Int32,System.Int32,UnityEngine.Color,UnityEngine.Color)">
+            <summary>
+            Renders a path visualization between pA and pB based on the current settings using pPathMove's Interpolator.
+            NOTE: pWaypointIndexA and pWaypointIndexB must have a difference of exactly 1 index.
+            NOTE: The Interpolator evaluates movement from pWaypointIndexA to pWaypointIndexB.
+            </summary>
+            <param name="pPathMove"></param>
+            <param name="pWaypointIndexA"></param>
+            <param name="pWaypointIndexB"></param>
+            <param name="pColorStart">The color to render the path dots at the start of a path with.</param>
+            <param name="pColorEnd">The color to render the path dots at the end of a path with.</param>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveGizmo.DrawLabel(UnityEngine.Vector3,System.String,System.Single,System.Int32,UnityEngine.Color)">
+            <summary>Draws a Handles label with the specified settings.</summary>
+            <param name="pPosition"></param>
+            <param name="pText"></param>
+            <param name="pDistance"></param>
+            <param name="pFontSize"></param>
+            <param name="pColor"></param>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveGizmo.SaveEditorPrefs">
+            <summary>Saves the editor preferences for the 'Path Move Gizmo Settings'.</summary>
+        </member>
+        <member name="M:Waypoints.Editor.Pathing.PathMoveGizmo.LoadEditorPrefs">
+            <summary>Loads the editor preferences for the 'Path Move Gizmo Settings'.</summary>
+        </member>
+        <member name="T:Waypoints.WaypointsEditorUtility">
+            <summary>
+            A public static class that provides some useful helper function(s) related to things like copying and instantiating visual-only representations of GameObjects.
+            </summary>
+            Author: Mathew Aloisio
+        </member>
+        <member name="F:Waypoints.WaypointsEditorUtility.COMPONENTS_WHITELIST">
+            <summary>An array of components that are allowed on 'visual' representations of objects.</summary>
+        </member>
+        <member name="M:Waypoints.WaypointsEditorUtility.InstantiateVisualInstance(UnityEngine.GameObject,UnityEngine.Transform,UnityEngine.Material)">
+            <summary>
+            Instantiates a visual instance of the GameObject, pObject, and returns it.
+            </summary>
+            <param name="pObject">The copy object to make a visual instance of.</param>
+            <param name="pParent">The parent Transform for the newly instantiated GameObject.</param>
+            <param name="pMaterialOverride">An optional material override parameter. If non-null all materials will be overridden with the referenced Material.</param>
+            <returns>a GameObject that is a visual-only copy of pObject.</returns>
+        </member>
+        <member name="M:Waypoints.WaypointsEditorUtility.SafeDestroy(UnityEngine.Object,System.Boolean)">
+            <summary>
+            Safely destroys a UnityEngine.Object based on whether or not the application is running. Registers an undo record for the destroy if the application is not running.
+            Destroys dependant components of MonoBehaviours automatically.
+            </summary>
+            <param name="pObject">The UnityEnigne.Object to destroy.</param>
+            <param name="pAddUndo">Should an undo entry be added when destroying in editor mode?</param>
+        </member>
+        <member name="M:Waypoints.WaypointsEditorUtility.DestroyRequiredComponents(UnityEngine.MonoBehaviour,System.Boolean)">
+            <summary>Destroys </summary>
+            <param name="pBehaviour"></param>
+            <param name="pAddUndo">Should an undo entry be added when destroying in editor mode?</param>
+        </member>
+        <member name="M:Waypoints.WaypointsEditorUtility.Private_SafeDestroy(UnityEngine.Object,System.Boolean)">
+            <summary>Safely destroys a UnityEngine.Object based on whether or not the application is running. Registers an undo record for the destroy if the application is not running.</summary>
+            <param name="pObject">The UnityEngine.Object to destroy.</param>
+            <param name="pAddUndo">When in editor mode should an undo entry be added?</param>
+        </member>
+        <member name="M:Waypoints.WaypointsEditorUtility.RemoveWaypointByIndex(Waypoints.Pathing.PathMove,System.Int32)">
+            <summary>
+            Removes the waypoint at the given index in the 'pPathMove.waypoints' array, shifting elements above it down in the array, and destroying the waypoint GameObject if it is valid.
+            No undo record is made.
+            </summary>
+            <param name="pPathMove"></param>
+            <param name="pIndex"></param>
+        </member>
+    </members>
+</doc>
