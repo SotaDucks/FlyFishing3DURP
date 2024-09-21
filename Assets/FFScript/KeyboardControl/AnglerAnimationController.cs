@@ -2,75 +2,101 @@ using UnityEngine;
 
 public class AnglerAnimationController : MonoBehaviour
 {
+    // Animator组件
     private Animator animator;
 
-    // 动画状态名称
-    private string swingLeftAnimationStateName = "SwingLeft";
-    private string swingRightAnimationStateName = "SwingRight";
-
-    // 控制动画切换的参数名称
-    private string isSwingLeftParam = "IsSwingLeft";
-    private string isSwingRightParam = "IsSwingRight";
-
-    // Switch Delay Time，以动画的标准化时间表示
-    public float switchDelayNormalizedTime = 0.5f;
-
-    // 标志变量，控制按键输入
-    private bool canPressA = true;
-    private bool canPressD = false;
+    // 动画参数名称
+    private readonly string PRESSING_SPACE = "PressingSpace";
+    private readonly string SWING_LEFT = "SwingLeft";
+    private readonly string SWING_RIGHT = "SwingRight";
+    private readonly string RETRIEVE = "Retrieve";
 
     void Start()
     {
+        // 获取Animator组件
         animator = GetComponent<Animator>();
-        animator.SetBool(isSwingLeftParam, false);
-        animator.SetBool(isSwingRightParam, false);
+        if (animator == null)
+        {
+            Debug.LogError("Animator组件未找到！");
+        }
     }
 
     void Update()
     {
-        // 按键输入检测
-        if (Input.GetKeyDown(KeyCode.A) && canPressA)
+        HandleInput();
+    }
+
+    /// <summary>
+    /// 处理用户输入并设置Animator参数
+    /// </summary>
+    private void HandleInput()
+    {
+        if (animator == null)
+            return;
+
+        // 处理空格键按下和释放
+        bool isPressingSpace = Input.GetKey(KeyCode.Space);
+        animator.SetBool(PRESSING_SPACE, isPressingSpace);
+
+        // 处理A键按下
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            PlaySwingLeft();
-        }
-        else if (Input.GetKeyDown(KeyCode.D) && canPressD)
-        {
-            PlaySwingRight();
+            Debug.Log("A键被按下，触发 SwingLeft 动画");
+            animator.SetBool(SWING_LEFT, true);
+            // 启动协程以在动画后重置参数
+            StartCoroutine(ResetSwingParameter(SWING_LEFT));
         }
 
-        // 获取当前动画状态信息
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-        // 检测SwingLeft动画状态
-        if (stateInfo.IsName(swingLeftAnimationStateName))
+        // 处理D键按下
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            if (stateInfo.normalizedTime >= switchDelayNormalizedTime)
+            Debug.Log("D键被按下，触发 SwingRight 动画");
+            animator.SetBool(SWING_RIGHT, true);
+            // 启动协程以在动画后重置参数
+            StartCoroutine(ResetSwingParameter(SWING_RIGHT));
+        }
+
+        // 处理S键按下
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            // 仅在PressingSpace为false时允许触发Retrieve
+            if (!isPressingSpace)
             {
-                canPressD = true;
+                Debug.Log("S键被按下，触发 Retrieve 动画");
+                animator.SetTrigger(RETRIEVE);
+                // 不需要启动协程重置Trigger，因为Trigger会自动重置
             }
-        }
-        else if (stateInfo.IsName(swingRightAnimationStateName))
-        {
-            if (stateInfo.normalizedTime >= switchDelayNormalizedTime)
+            else
             {
-                canPressA = true;
+                Debug.Log("S键被按下，但 PressingSpace 为 true，无法触发 Retrieve 动画");
             }
         }
     }
 
-    void PlaySwingLeft()
+    /// <summary>
+    /// 协程：在指定时间后重置Swing参数
+    /// </summary>
+    /// <param name="parameter">要重置的参数名称</param>
+    /// <returns></returns>
+    private System.Collections.IEnumerator ResetSwingParameter(string parameter)
     {
-        animator.SetBool(isSwingLeftParam, true);
-        animator.SetBool(isSwingRightParam, false); // 立即重置另一参数
-        canPressA = false;
-        canPressD = false;
+        // 等待动画过渡完成（根据动画长度调整等待时间）
+        // 这里假设每个Swing动画持续0.5秒
+        yield return new WaitForSeconds(0.5f);
+        animator.SetBool(parameter, false);
     }
 
-    void PlaySwingRight()
+    /// <summary>
+    /// 动画事件调用的方法，用于重置Swing参数
+    /// 如果使用动画事件，可以通过调用此方法来重置参数，而不需要协程
+    /// </summary>
+    /// <param name="parameter">要重置的参数名称</param>
+    public void OnAnimationEnd(string parameter)
     {
-        animator.SetBool(isSwingRightParam, true);
-        animator.SetBool(isSwingLeftParam, false); // 立即重置另一参数
-        canPressA = false;
-        canPressD = false;
+        if (animator != null)
+        {
+            animator.SetBool(parameter, false);
+            Debug.Log($"{parameter} 参数已重置");
+        }
     }
 }
