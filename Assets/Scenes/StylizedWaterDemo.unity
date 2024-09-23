@@ -4937,7 +4937,7 @@ GameObject:
   - component: {fileID: 401816988}
   - component: {fileID: 401816989}
   m_Layer: 0
-  m_Name: Obi Solver(SlackLine)
+  m_Name: SlackLineSolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13718,7 +13718,7 @@ GameObject:
   - component: {fileID: 854797994}
   - component: {fileID: 854797993}
   m_Layer: 0
-  m_Name: FlyLineSystem(obi solver)
+  m_Name: FlyLineSolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14771,8 +14771,9 @@ GameObject:
   - component: {fileID: 922766017}
   - component: {fileID: 922766019}
   - component: {fileID: 922766020}
+  - component: {fileID: 922766021}
   m_Layer: 0
-  m_Name: FlyLine(Obi Rope)
+  m_Name: FlyLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15080,6 +15081,19 @@ MonoBehaviour:
   m_ConstrainOrientation: 0
   m_Compliance: 0
   m_BreakThreshold: Infinity
+--- !u!114 &922766021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922766009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bda7afd22c803544a415eaebc14a624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extendSpeed: 1
 --- !u!1 &924495719
 GameObject:
   m_ObjectHideFlags: 0
@@ -17409,6 +17423,25 @@ BoxCollider:
     type: 3}
   m_PrefabInstance: {fileID: 1429107938666329319}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1104649540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104649528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 717f78cc0cb7c3f4c9793ada11211d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exit1: {fileID: 2125412009}
+  exit2: {fileID: 1599529462}
+  attractionProbability: 1
+  moveSpeed: 7
+  returnMoveSpeed: 5
+  stopDistance: 0.5
+  attractionDuration: 0.5
 --- !u!1 &1114107619
 GameObject:
   m_ObjectHideFlags: 0
@@ -24490,6 +24523,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1571126998}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1578065647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1578065649}
+  - component: {fileID: 1578065648}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1578065648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578065647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1578065649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578065647}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1586541425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24766,6 +24845,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3485136059956966795, guid: 402116231069f8f408462fbe36f02c9d,
     type: 3}
   m_PrefabInstance: {fileID: 1595339562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1599529462 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2992594226265620089, guid: b86233746d0867e49b46197c7b1f703a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1429107938666329319}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1599863848
 GameObject:
@@ -29316,52 +29401,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1830865974}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1841047188
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1841047190}
-  - component: {fileID: 1841047189}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1841047189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1841047188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1841047190
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1841047188}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1848107859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33136,6 +33175,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124709342}
   m_Mesh: {fileID: -3505231035254027634, guid: 68099698bf6b465468890b1aaa0376da, type: 3}
+--- !u!4 &2125412009 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5211481811544954440, guid: b86233746d0867e49b46197c7b1f703a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1429107938666329319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2127765235
 GameObject:
   m_ObjectHideFlags: 0
@@ -33311,6 +33356,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trout1SpawnPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 3220435978838067958, guid: b86233746d0867e49b46197c7b1f703a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214779644871192050, guid: b86233746d0867e49b46197c7b1f703a,
+        type: 3}
+      propertyPath: m_Name
+      value: TroutLocation1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798929799122209308, guid: b86233746d0867e49b46197c7b1f703a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5798929799122209308, guid: b86233746d0867e49b46197c7b1f703a,
         type: 3}
       propertyPath: moveSpeed
@@ -33318,8 +33378,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5798929799122209308, guid: b86233746d0867e49b46197c7b1f703a,
         type: 3}
+      propertyPath: stopDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798929799122209308, guid: b86233746d0867e49b46197c7b1f703a,
+        type: 3}
       propertyPath: biteProbability
       value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798929799122209308, guid: b86233746d0867e49b46197c7b1f703a,
+        type: 3}
+      propertyPath: attractionDuration
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8563674414334515249, guid: b86233746d0867e49b46197c7b1f703a,
         type: 3}
@@ -33386,6 +33456,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1104649530}
+    - targetCorrespondingSourceObject: {fileID: 5214779644871192050, guid: b86233746d0867e49b46197c7b1f703a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1104649540}
   m_SourcePrefab: {fileID: 100100000, guid: b86233746d0867e49b46197c7b1f703a, type: 3}
 --- !u!1 &2125826352953498272 stripped
 GameObject:
@@ -33485,4 +33559,4 @@ SceneRoots:
   - {fileID: 1667522494}
   - {fileID: 1429107938666329319}
   - {fileID: 1322127604}
-  - {fileID: 1841047190}
+  - {fileID: 1578065649}

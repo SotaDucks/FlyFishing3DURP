@@ -10,7 +10,8 @@ public class AnglerAnimationController : MonoBehaviour
     private readonly string SWING_LEFT = "SwingLeft";
     private readonly string SWING_RIGHT = "SwingRight";
     private readonly string RETRIEVE = "Retrieve";
-
+    private readonly string PRESSING_W = "PressingW";
+    private readonly string LIFT_ROD = "LiftRod";
     void Start()
     {
         // 获取Animator组件
@@ -71,6 +72,34 @@ public class AnglerAnimationController : MonoBehaviour
                 Debug.Log("S键被按下，但 PressingSpace 为 true，无法触发 Retrieve 动画");
             }
         }
+
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            
+                animator.SetBool(PRESSING_W, true);
+               
+           
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+
+            animator.SetBool(LIFT_ROD, true);
+            // 不需要启动协程重置Trigger，因为Trigger会自动重置
+
+        }
+
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+
+            animator.SetBool(LIFT_ROD, false);
+            // 不需要启动协程重置Trigger，因为Trigger会自动重置
+
+        }
+
+
     }
 
     /// <summary>

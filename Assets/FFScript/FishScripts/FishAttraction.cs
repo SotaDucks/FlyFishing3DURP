@@ -18,6 +18,8 @@ public class FishAttraction : MonoBehaviour
     private float attractionTimer = 0f; // 记录吸引的时间
     private Transform currentTarget; // 当前移动的目标位置
 
+    private Animator animator; // Animator 引用
+
     void Start()
     {
         // 自动查找名为 "flyhook" 的 GameObject 并获取其 Transform
@@ -33,6 +35,13 @@ public class FishAttraction : MonoBehaviour
 
         // 获取SplineAnimate组件
         splineAnimate = GetComponent<SplineAnimate>();
+
+        // 获取Animator组件
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.LogError("未找到 Animator 组件！");
+        }
     }
 
     void Update()
@@ -106,6 +115,12 @@ public class FishAttraction : MonoBehaviour
         isAttracted = false; // 取消吸引状态
         isReturning = true; // 开始返回状态
         currentTarget = exit1; // 首先移动到Exit1
+
+        // 设置Animator的IsExiting为True以播放TroutFast动画
+        if (animator != null)
+        {
+            animator.SetBool("IsExiting", true);
+        }
     }
 
     private void MoveTowardsTarget()
