@@ -7,6 +7,7 @@ public class FishDragLine : MonoBehaviour
     private ObiRope rope; // 引用 ObiRope 组件
     private ObiRopeCursor ropeCursor; // 引用 ObiRopeCursor 组件
     private bool isExtending = false; // 标记绳子是否在变长
+    private Animator characterAnimator; // 引用 Character 的 Animators
 
     void Start()
     {
@@ -24,10 +25,15 @@ public class FishDragLine : MonoBehaviour
 
     void Update()
     {
-        // 如果绳子处于变长状态，按照指定速度增加绳子的长度
         if (isExtending && rope != null && ropeCursor != null)
         {
             ExtendRope();
+        }
+
+        // 检查“SetTheHook”动画是否正在播放
+        if (characterAnimator != null && characterAnimator.GetCurrentAnimatorStateInfo(0).IsName("SetTheHook"))
+        {
+            StopExtending(); // 停止延长绳子
         }
     }
 
