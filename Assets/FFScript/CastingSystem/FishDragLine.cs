@@ -3,17 +3,23 @@ using Obi;
 
 public class FishDragLine : MonoBehaviour
 {
-    public float extendSpeed = 1f; // 每秒绳子变长的速度
+    public float dragSpeed = 1f; // 拖动时绳子增长速度
+    public float retrieveSpeed = 1f; // 收回时绳子缩短速度
+    public float struggleSpeed = 1f; // 挣扎时绳子增长速度
+    public float pullSpeed = 1f; // 拉动时绳子缩短速度
+
     private ObiRope rope; // 引用 ObiRope 组件
     private ObiRopeCursor ropeCursor; // 引用 ObiRopeCursor 组件
-    private bool isExtending = false; // 标记绳子是否在变长
-    private Animator characterAnimator; // 引用 Character 的 Animators
+    private bool isDragging = false; // 标记拖动状态
+    private bool isRetrieving = false; // 标记收回状态
+    private bool isStruggling = false; // 标记挣扎状态
+    private bool isPulling = false; // 标记拉动状态
+    private Animator characterAnimator; // 引用角色动画
 
     void Start()
     {
         // 获取 ObiRope 组件
         rope = GetComponent<ObiRope>();
-
         // 获取 ObiRopeCursor 组件
         ropeCursor = GetComponent<ObiRopeCursor>();
 
@@ -25,35 +31,88 @@ public class FishDragLine : MonoBehaviour
 
     void Update()
     {
-        if (isExtending && rope != null && ropeCursor != null)
+        // 根据不同状态来延长或缩短绳子
+        if (isDragging && rope != null && ropeCursor != null)
         {
-            ExtendRope();
+            ExtendRope(dragSpeed); // 拖动绳子
+        }
+        if (isRetrieving && rope != null && ropeCursor != null)
+        {
+            ExtendRope(-retrieveSpeed); // 收回绳子
+        }
+        if (isStruggling && rope != null && ropeCursor != null)
+        {
+            ExtendRope(struggleSpeed); // 挣扎时绳子增长
+        }
+        if (isPulling && rope != null && ropeCursor != null)
+        {
+            ExtendRope(-pullSpeed); // 拉动绳子
         }
 
-        // 检查“SetTheHook”动画是否正在播放
+        // 检查“SetTheHook”动画是否正在播放，如果正在播放则停止所有操作
         if (characterAnimator != null && characterAnimator.GetCurrentAnimatorStateInfo(0).IsName("SetTheHook"))
         {
-            StopExtending(); // 停止延长绳子
+            StopAllActions(); // 停止所有动作
         }
     }
 
-    // 开始延长绳子
-    public void StartExtending()
+    // 拖动绳子
+    public void StartDragging()
     {
-        isExtending = true; // 激活绳子变长
+        isDragging = true;
     }
 
-    // 停止延长绳子
-    public void StopExtending()
+    public void StopDragging()
     {
-        isExtending = false; // 停止绳子变长
+        isDragging = false;
     }
 
-    // 延长绳子的逻辑
-    private void ExtendRope()
+    // 收回绳子
+    public void StartRetrieving()
     {
-        // 使用 ObiRopeCursor 来增加绳子的长度
-        ropeCursor.ChangeLength(extendSpeed * Time.deltaTime);
-        Debug.Log("绳子正在延长，当前长度增加: " + extendSpeed * Time.deltaTime);
+        isRetrieving = true;
+    }
+
+    public void StopRetrieving()
+    {
+        isRetrieving = false;
+    }
+
+    // 挣扎
+    public void StartStruggling()
+    {
+        isStruggling = true;
+    }
+
+    public void StopStruggling()
+    {
+        isStruggling = false;
+    }
+
+    // 拉动绳子
+    public void StartPulling()
+    {
+        isPulling = true;
+    }
+
+    public void StopPulling()
+    {
+        isPulling = false;
+    }
+
+    // 停止所有绳子的操作
+    public void StopAllActions()
+    {
+        isDragging = false;
+        isRetrieving = false;
+        isStruggling = false;
+        isPulling = false;
+    }
+
+    // 绳子延长或缩短的逻辑
+    private void ExtendRope(float speed)
+    {
+        ropeCursor.ChangeLength(speed * Time.deltaTime); // 使用 ObiRopeCursor 来改变绳子的长度
+        Debug.Log("绳子状态变化，当前长度变化: " + speed * Time.deltaTime);
     }
 }
