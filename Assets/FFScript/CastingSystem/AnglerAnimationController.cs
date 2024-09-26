@@ -10,8 +10,8 @@ public class AnglerAnimationController : MonoBehaviour
     private readonly string SWING_LEFT = "SwingLeft";
     private readonly string SWING_RIGHT = "SwingRight";
     private readonly string RETRIEVE = "Retrieve";
-    private readonly string PRESSING_W = "PressingW";
     private readonly string LIFT_ROD = "LiftRod";
+    private readonly string SETTHEHOOK = "SetTheHook";
     void Start()
     {
         // 获取Animator组件
@@ -74,12 +74,13 @@ public class AnglerAnimationController : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && animator.GetBool("FishOn"))
         {
             
-                animator.SetBool(PRESSING_W, true);
-               
-           
+            // animator.SetBool(PRESSING_W, true);
+            animator.SetTrigger(SETTHEHOOK);
+
+
         }
 
         if (Input.GetKey(KeyCode.A))
