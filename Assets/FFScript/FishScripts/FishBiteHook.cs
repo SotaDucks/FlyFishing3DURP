@@ -11,7 +11,7 @@ public class FishBiteHook : MonoBehaviour
     public float escapeSpeed = 5f; // 鱼逃跑的速度
 
     private Animator fishAnimator; // 鱼的 Animator 组件
-    private Animator characterAnimator; // 场景中 Character 的 Animator 组件
+    private Animator characterAnimator; // 场景中 Character 的 Animator 组件 
     private bool isMovingToHook = true; // 标记是否在向飞钩移动
     private float waitTimer = 0f; // 等待计时器
     private FishDragLine fishDragLine; // 引用 FishDragLine 脚本
@@ -112,7 +112,7 @@ public class FishBiteHook : MonoBehaviour
             }
 
             // 逃跑开始时切换动画
-            fishAnimator.SetTrigger("Escape"); // 切换鱼的动画
+            
             characterAnimator.SetBool("FishOn", true); // 设置 Character 动画的 FishOn 为 true
 
             // 开始拉出鱼线
