@@ -8,20 +8,17 @@ public class FishStaminaBar : MonoBehaviour
     public Slider fishStaminaBar;
 
     private int maxStamina = 100;
-    public int currentStamina;
+    public float currentStamina;
 
-    // 正常耐力回复速度和间隔
-    public float normalRegenSpeed = 2f; // 每次回复的耐力值
-    public float normalRegenTick = 0.001f; // 回复间隔
+    // 正常耐力回复速度
+    public float normalRegenSpeed = 2f; // 每秒回复的耐力值
 
     // 耐力为0时的延迟和特定回复速度
     public float zeroStaminaDelay = 2f; // 延迟时间
-    public float StaminaChargingSpeed = 5f; // 特定的回复速度
-    public float zeroRegenTick = 0.001f; // 特定回复间隔
+    public float staminaChargingSpeed = 5f; // 特定的每秒回复速度
 
     private bool isRegeneratingAfterZero = false; // 标记是否在特定回复状态
-
-    private Coroutine regen;
+    private float zeroStaminaTimer = 0f; // 耐力耗尽后的计时器
 
     public static FishStaminaBar instance;
 
@@ -38,7 +35,65 @@ public class FishStaminaBar : MonoBehaviour
     {
         currentStamina = maxStamina;
         fishStaminaBar.maxValue = maxStamina;
-        fishStaminaBar.value = maxStamina;
+        fishStaminaBar.value = currentStamina;
+    }
+
+    void Update()
+    {
+        // 当恢复次数未达到上限时，允许耐力回复
+        if (currentRechargeTimes < rechargeTimes)
+        {
+            if (currentStamina < maxStamina)
+            {
+                if (currentStamina > 0 && !isRegeneratingAfterZero)
+                {
+                    // 正常回复
+                    RegenerateStamina(normalRegenSpeed);
+                }
+                else if (currentStamina <= 0)
+                {
+                    // 耐力耗尽后的延迟计时
+                    zeroStaminaTimer += Time.deltaTime;
+                    if (zeroStaminaTimer >= zeroStaminaDelay)
+                    {
+                        isRegeneratingAfterZero = true;
+                        RegenerateStamina(staminaChargingSpeed);
+
+                        if (currentStamina >= maxStamina)
+                        {
+                            isRegeneratingAfterZero = false;
+                            zeroStaminaTimer = 0f;
+                            currentRechargeTimes++;
+                        }
+                    }
+                }
+                else if (currentStamina > 0 && isRegeneratingAfterZero)
+                {
+                    // 在特定回复状态下继续回复
+                    RegenerateStamina(staminaChargingSpeed);
+
+                    if (currentStamina >= maxStamina)
+                    {
+                        isRegeneratingAfterZero = false;
+                        zeroStaminaTimer = 0f;
+                        currentRechargeTimes++;
+                    }
+                }
+            }
+        }
+        else
+        {
+            // 恢复次数已达上限，停止一切耐力回复
+            isRegeneratingAfterZero = false;
+            zeroStaminaTimer = 0f;
+        }
+    }
+
+    private void RegenerateStamina(float regenSpeed)
+    {
+        currentStamina += regenSpeed * Time.deltaTime;
+        currentStamina = Mathf.Min(currentStamina, maxStamina);
+        fishStaminaBar.value = currentStamina;
     }
 
     public void UseStamina(int amount)
@@ -53,68 +108,11 @@ public class FishStaminaBar : MonoBehaviour
         {
             currentStamina -= amount;
             fishStaminaBar.value = currentStamina;
-
-            if (regen != null)
-                StopCoroutine(regen);
-
-            regen = StartCoroutine(RegenStamina());
         }
         else
         {
             currentStamina = 0;
             fishStaminaBar.value = currentStamina;
-
-            if (regen != null)
-                StopCoroutine(regen);
-
-            // 检查是否还有剩余的恢复次数
-            if (currentRechargeTimes < rechargeTimes)
-            {
-                // 启动耐力耗尽后的特定回复协程
-                regen = StartCoroutine(RegenStaminaAfterZero());
-            }
-            else
-            {
-                // 耐力条不再回复
-                isRegeneratingAfterZero = false;
-                regen = null;
-            }
         }
-    }
-
-    private IEnumerator RegenStamina()
-    {
-        yield return new WaitForSeconds(normalRegenTick);
-
-        while (currentStamina < maxStamina && !isRegeneratingAfterZero)
-        {
-            currentStamina += Mathf.RoundToInt(normalRegenSpeed);
-            currentStamina = Mathf.Min(currentStamina, maxStamina);
-            fishStaminaBar.value = currentStamina;
-            yield return new WaitForSeconds(normalRegenTick);
-        }
-
-        regen = null;
-    }
-
-    private IEnumerator RegenStaminaAfterZero()
-    {
-        isRegeneratingAfterZero = true;
-
-        // 增加已恢复次数
-        currentRechargeTimes++;
-
-        yield return new WaitForSeconds(zeroStaminaDelay);
-
-        while (currentStamina < maxStamina)
-        {
-            currentStamina += Mathf.RoundToInt(StaminaChargingSpeed);
-            currentStamina = Mathf.Min(currentStamina, maxStamina);
-            fishStaminaBar.value = currentStamina;
-            yield return new WaitForSeconds(zeroRegenTick);
-        }
-
-        isRegeneratingAfterZero = false;
-        regen = null;
     }
 }
