@@ -11,7 +11,10 @@ public class FishLanding : MonoBehaviour
     private Rigidbody fishRigidbody;
     private FishStaminaBar staminaBar;
     private Canvas canvasComponent; // FishStaminaCanvas 上的 Canvas 组件
-    private FishDragLine fishDragLine; // 引用 FishDragLine 脚本
+    private FishDragLine fishDragLine; // FishDragLine 组件
+
+    private Collider waterSurfaceTriggerCollider; // WaterSurfaceTrigger 的碰撞体
+    private bool isInWater = false; // 鱼是否在水中
 
     private void Start()
     {
@@ -22,6 +25,28 @@ public class FishLanding : MonoBehaviour
         {
             Debug.LogError("FishStaminaBar instance is not found. Please ensure FishStaminaBar script is attached to an active GameObject in the scene.");
             return;
+        }
+
+        // 获取 FishDragLine 组件
+        fishDragLine = GameObject.Find("FlyLine").GetComponent<FishDragLine>();
+        if (fishDragLine == null)
+        {
+            Debug.LogError("FishDragLine component not found on 'FlyLine' GameObject.");
+        }
+
+        // 获取 WaterSurfaceTrigger 的碰撞体
+        GameObject waterSurfaceTrigger = GameObject.Find("WaterSurfaceTrigger");
+        if (waterSurfaceTrigger != null)
+        {
+            waterSurfaceTriggerCollider = waterSurfaceTrigger.GetComponent<Collider>();
+            if (waterSurfaceTriggerCollider == null)
+            {
+                Debug.LogError("Collider component not found on 'WaterSurfaceTrigger' GameObject.");
+            }
+        }
+        else
+        {
+            Debug.LogError("'WaterSurfaceTrigger' GameObject not found in the scene.");
         }
 
         // 获取 FishStaminaCanvas 上的 Canvas 组件
@@ -75,10 +100,19 @@ public class FishLanding : MonoBehaviour
                 yield break;
             }
 
-            if (staminaBar.currentStamina > 0)
+            if (fishDragLine == null)
             {
-                // 耐力值不为0
+                Debug.LogError("fishDragLine is null.");
+                yield break;
+            }
+
+            if (staminaBar.currentStamina > 0 && isInWater)
+            {
+                // 耐力值不为0 且 鱼在水中
                 fishRigidbody.isKinematic = true;
+
+                // 调用 fishDragLine.StartStruggling() 伸长绳子
+                fishDragLine.StartStruggling();
 
                 // 调整方向面对撤离点
                 Vector3 direction = (escapePoint.position - transform.position).normalized;
@@ -90,11 +124,32 @@ public class FishLanding : MonoBehaviour
             }
             else
             {
-                // 耐力值为0
+                // 耐力值为0 或 鱼不在水中
                 fishRigidbody.isKinematic = false;
+
+                // 调用 fishDragLine.StopStruggling() 停止伸长绳子
+                fishDragLine.StopStruggling();
             }
 
             yield return null;
+        }
+    }
+
+    // 当鱼的碰撞体进入触发器时调用
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other == waterSurfaceTriggerCollider)
+        {
+            isInWater = true;
+        }
+    }
+
+    // 当鱼的碰撞体退出触发器时调用
+    private void OnTriggerExit(Collider other)
+    {
+        if (other == waterSurfaceTriggerCollider)
+        {
+            isInWater = false;
         }
     }
 }

@@ -7474,52 +7474,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 496087043}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &503325045
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 503325047}
-  - component: {fileID: 503325046}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &503325046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503325045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &503325047
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 503325045}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &519283859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8126,7 +8080,7 @@ MonoBehaviour:
   waterLevelPadding: 0.5
   waterMaterial: {fileID: 2100000, guid: ed0416582c0e8af4c95f12cde52ed507, type: 2}
   dynamicMaterial: 0
-  settings: {fileID: 1867967224}
+  settings: {fileID: 0}
   useVolumeBlending: 0
   startDistance: 0
   fogDensity: 0.7
@@ -8962,11 +8916,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishStaminaBar: {fileID: 613236261}
   currentStamina: 0
-  normalRegenSpeed: 0.5
-  normalRegenTick: 0.01
-  zeroStaminaDelay: 2
+  normalRegenSpeed: 1
+  normalRegenTick: 0.001
+  zeroStaminaDelay: 4
   StaminaChargingSpeed: 5
   zeroRegenTick: 0.001
+  rechargeTimes: 1
 --- !u!114 &613236261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14788,74 +14743,74 @@ MonoBehaviour:
     enabled: 1
   particleCollisionConstraintParameters:
     evaluationOrder: 0
-    iterations: 1
+    iterations: 2
     SORFactor: 1
     enabled: 1
   particleFrictionConstraintParameters:
     evaluationOrder: 1
-    iterations: 1
+    iterations: 2
     SORFactor: 1
     enabled: 1
   collisionConstraintParameters:
     evaluationOrder: 0
-    iterations: 1
+    iterations: 2
     SORFactor: 1
     enabled: 1
   frictionConstraintParameters:
     evaluationOrder: 1
-    iterations: 1
+    iterations: 2
     SORFactor: 1
     enabled: 1
   skinConstraintParameters:
     evaluationOrder: 0
     iterations: 1
     SORFactor: 1
-    enabled: 1
+    enabled: 0
   volumeConstraintParameters:
     evaluationOrder: 1
     iterations: 1
     SORFactor: 1
-    enabled: 1
+    enabled: 0
   shapeMatchingConstraintParameters:
     evaluationOrder: 1
     iterations: 1
     SORFactor: 1
-    enabled: 1
+    enabled: 0
   tetherConstraintParameters:
     evaluationOrder: 1
-    iterations: 1
+    iterations: 2
     SORFactor: 1
     enabled: 1
   pinConstraintParameters:
     evaluationOrder: 1
-    iterations: 1
+    iterations: 2
     SORFactor: 1
     enabled: 1
   stitchConstraintParameters:
     evaluationOrder: 1
     iterations: 1
     SORFactor: 1
-    enabled: 1
+    enabled: 0
   densityConstraintParameters:
     evaluationOrder: 1
     iterations: 1
     SORFactor: 1
-    enabled: 1
+    enabled: 0
   stretchShearConstraintParameters:
     evaluationOrder: 0
     iterations: 1
     SORFactor: 1
-    enabled: 1
+    enabled: 0
   bendTwistConstraintParameters:
     evaluationOrder: 0
     iterations: 1
     SORFactor: 1
-    enabled: 1
+    enabled: 0
   chainConstraintParameters:
     evaluationOrder: 0
     iterations: 1
     SORFactor: 1
-    enabled: 1
+    enabled: 0
 --- !u!1001 &858961490
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16188,6 +16143,10 @@ MonoBehaviour:
   RetrieveSpeed: 0.5
   RetrieveAmount: 0.8
   MinLength: 1
+  landingSpeed: 2
+  landingAmount: 2
+  animator: {fileID: 1829636569}
+  fishStaminaBar: {fileID: 0}
 --- !u!114 &922766020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25666,6 +25625,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1518648437}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1523125742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523125744}
+  - component: {fileID: 1523125743}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1523125743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523125742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1523125744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523125742}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1529613559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4632462980897818184, guid: 8810219ce43a1234a9ab11b3e70f19e4,
@@ -26804,6 +26809,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 011b790ca932d4fc4af90dc4abe671c6,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1591637881}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 011b790ca932d4fc4af90dc4abe671c6,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1591637872}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 011b790ca932d4fc4af90dc4abe671c6,
         type: 3}
@@ -27076,7 +27085,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -27085,8 +27094,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 2.2272074}
-  m_Center: {x: 0.0000011573097, y: 0.0000068262993, z: -0.61360794}
+  m_Size: {x: 1.6958352, y: 2.7091575, z: 11.076912}
+  m_Center: {x: -0.102778964, y: -0.17118348, z: -5.0384774}
 --- !u!114 &1591637875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27165,7 +27174,7 @@ Rigidbody:
   m_GameObject: {fileID: 1591637847}
   serializedVersion: 4
   m_Mass: 30
-  m_Drag: 20
+  m_Drag: 10
   m_AngularDrag: 100
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -27198,7 +27207,25 @@ MonoBehaviour:
   activationDelay: 2
   fishStaminaCanvas: {fileID: 964798735}
   escapePoint: {fileID: 298350537}
-  moveSpeed: 3
+  moveSpeed: 2
+--- !u!114 &1591637881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591637847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30ead5ae51ab1d448c60c90660feb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InWaterMass: 30
+  InWaterDrag: 10
+  InWaterAngularDrag: 100
+  OutWaterMass: 30
+  OutWaterDrag: 0
+  OutWaterAngularDrag: 0
 --- !u!1001 &1595339562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28491,6 +28518,7 @@ MonoBehaviour:
   zeroStaminaDelay: 2
   StaminaChargingSpeed: 5
   zeroRegenTick: 0.001
+  rechargeTimes: 2
 --- !u!114 &1648430583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32477,52 +32505,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1858447172}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1867967224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: defe3efb56c1bc943a6bfb504a00dc77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  startDistance:
-    m_OverrideState: 0
-    m_Value: 0
-  fogDensity:
-    m_OverrideState: 0
-    m_Value: 20
-  heightFogDepth:
-    m_OverrideState: 0
-    m_Value: 25
-  heightFogDensity:
-    m_OverrideState: 0
-    m_Value: 1
-  heightFogBrightness:
-    m_OverrideState: 0
-    m_Value: 0.6
-  fogBrightness:
-    m_OverrideState: 0
-    m_Value: 1
-  subsurfaceStrength:
-    m_OverrideState: 0
-    m_Value: 0.35
-  causticsStrength:
-    m_OverrideState: 0
-    m_Value: 1
-  distortionStrength:
-    m_OverrideState: 0
-    m_Value: 0.25
-  distortionFrequency:
-    m_OverrideState: 0
-    m_Value: 0.75
-  distortionSpeed:
-    m_OverrideState: 0
-    m_Value: 0.5
 --- !u!1 &1868168521
 GameObject:
   m_ObjectHideFlags: 0
@@ -33189,6 +33171,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1891945618}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1892003845
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1892003847}
+  - component: {fileID: 1892003846}
+  m_Layer: 0
+  m_Name: FishLandPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &1892003846
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892003845}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.52
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1892003847
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892003845}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.97036, z: 0, w: -0.24166411}
+  m_LocalPosition: {x: -53.91, y: -3.99, z: -55.08}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1895079669
 GameObject:
   m_ObjectHideFlags: 0
@@ -33906,7 +33941,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -33938,7 +33973,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -34004,9 +34039,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936239774}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.91779274, w: 0.39705992}
-  m_LocalPosition: {x: 2.9024074, y: 4.4171414, z: 0.016389063}
-  m_LocalScale: {x: -0.047104232, y: 0.049026072, z: 0.04902606}
+  m_LocalRotation: {x: -0.8958027, y: -0.4444521, z: -0.0000035315752, w: -0.0000017136335}
+  m_LocalPosition: {x: 2.9559362, y: 4.426285, z: -0.00038674896}
+  m_LocalScale: {x: 0.028571423, y: 0.028571421, z: 0.028571427}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1829636570}
@@ -37825,4 +37860,5 @@ SceneRoots:
   - {fileID: 1151555866}
   - {fileID: 298350537}
   - {fileID: 860175068}
-  - {fileID: 503325047}
+  - {fileID: 1892003847}
+  - {fileID: 1523125744}

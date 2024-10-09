@@ -25,6 +25,10 @@ public class FishStaminaBar : MonoBehaviour
 
     public static FishStaminaBar instance;
 
+    // 新增的变量
+    public int rechargeTimes = 2; // 耐力条最多可以被重新恢复的次数
+    private int currentRechargeTimes = 0; // 当前已经恢复的次数
+
     private void Awake()
     {
         instance = this;
@@ -63,8 +67,18 @@ public class FishStaminaBar : MonoBehaviour
             if (regen != null)
                 StopCoroutine(regen);
 
-            // 启动耐力耗尽后的特定回复协程
-            regen = StartCoroutine(RegenStaminaAfterZero());
+            // 检查是否还有剩余的恢复次数
+            if (currentRechargeTimes < rechargeTimes)
+            {
+                // 启动耐力耗尽后的特定回复协程
+                regen = StartCoroutine(RegenStaminaAfterZero());
+            }
+            else
+            {
+                // 耐力条不再回复
+                isRegeneratingAfterZero = false;
+                regen = null;
+            }
         }
     }
 
@@ -75,6 +89,7 @@ public class FishStaminaBar : MonoBehaviour
         while (currentStamina < maxStamina && !isRegeneratingAfterZero)
         {
             currentStamina += Mathf.RoundToInt(normalRegenSpeed);
+            currentStamina = Mathf.Min(currentStamina, maxStamina);
             fishStaminaBar.value = currentStamina;
             yield return new WaitForSeconds(normalRegenTick);
         }
@@ -86,11 +101,15 @@ public class FishStaminaBar : MonoBehaviour
     {
         isRegeneratingAfterZero = true;
 
+        // 增加已恢复次数
+        currentRechargeTimes++;
+
         yield return new WaitForSeconds(zeroStaminaDelay);
 
         while (currentStamina < maxStamina)
         {
             currentStamina += Mathf.RoundToInt(StaminaChargingSpeed);
+            currentStamina = Mathf.Min(currentStamina, maxStamina);
             fishStaminaBar.value = currentStamina;
             yield return new WaitForSeconds(zeroRegenTick);
         }
@@ -99,4 +118,3 @@ public class FishStaminaBar : MonoBehaviour
         regen = null;
     }
 }
-
