@@ -10,6 +10,8 @@ public class LineLengthController : MonoBehaviour
     private ObiRope rope;
 
     // 控制绳子的长度和增长参数
+    public float initialLength = 5f; // 游戏开始时的绳子长度
+
     public float maxLength = 10f; // 最大长度
     public float growthAmount = 1f; // 每次增长的长度
     public float growthSpeed = 1f; // 增长速度
@@ -43,6 +45,7 @@ public class LineLengthController : MonoBehaviour
         // 初始化绳子组件
         ropeCursor = GetComponent<ObiRopeCursor>();
         rope = GetComponent<ObiRope>();
+        ropeCursor.ChangeLength(initialLength);
 
         // 输出当前长度
         Debug.Log($"Initial Rope Length: {rope.restLength}");

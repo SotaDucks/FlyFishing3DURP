@@ -81,16 +81,8 @@ public class CameraFOVController : MonoBehaviour
                 // 重置fovVelocity，以免SmoothDamp受之前的速度影响
                 fovVelocity = 0f;
             }
-        }
-        else
-        {
-            // 如果当前动画不在列表中，且之前有匹配的动画，需要重置FOV
-            if (currentAnimationHash != 0)
-            {
-                currentAnimationHash = 0;
-                targetFOV = defaultFOV;
-                fovVelocity = 0f;
-            }
+        
+        
         }
 
         // 平滑过渡摄像机的FOV到目标值
