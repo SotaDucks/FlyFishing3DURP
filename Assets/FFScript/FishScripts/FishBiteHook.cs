@@ -9,6 +9,7 @@ public class FishBiteHook : MonoBehaviour
     public float stopDistance = 0.5f; // 鱼停止移动的最小距离
     public float waitTime = 1f; // 等待时间
     public float escapeSpeed = 5f; // 鱼逃跑的速度
+    public bool isFishBite = false; // 鱼是否咬钩
 
     private Animator fishAnimator; // 鱼的 Animator 组件
     private Animator characterAnimator; // 场景中 Character 的 Animator 组件 
@@ -80,11 +81,19 @@ public class FishBiteHook : MonoBehaviour
             AttachFishToFlyline(); // 绑定鱼到 FlyLine
             isMovingToHook = false; // 到达最小距离，开始等待
             waitTimer = waitTime; // 重置等待计时器
+
+            // 触发“TroutBite”动画
+            if (fishAnimator != null)
+            {
+                fishAnimator.SetTrigger("TroutBite");
+            }
         }
     }
 
+
     private void EscapeToExit()
     {
+        isFishBite = true;
         if (waitTimer > 0)
         {
             waitTimer -= Time.deltaTime; // 减少等待时间
@@ -114,6 +123,7 @@ public class FishBiteHook : MonoBehaviour
             // 逃跑开始时切换动画
             
             characterAnimator.SetBool("FishOn", true); // 设置 Character 动画的 FishOn 为 true
+  
 
             // 开始拉出鱼线
             if (fishDragLine != null)

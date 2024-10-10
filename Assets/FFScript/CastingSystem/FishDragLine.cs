@@ -10,10 +10,10 @@ public class FishDragLine : MonoBehaviour
 
     private ObiRope rope; // 引用 ObiRope 组件
     private ObiRopeCursor ropeCursor; // 引用 ObiRopeCursor 组件
-    private bool isDragging = false; // 标记拖动状态
-    private bool isRetrieving = false; // 标记收回状态
-    private bool isStruggling = false; // 标记挣扎状态
-    private bool isPulling = false; // 标记拉动状态
+    public bool isDragging = false; // 标记拖动状态
+    public bool isRetrieving = false; // 标记收回状态
+    public bool isStruggling = false; // 标记挣扎状态
+    public bool isPulling = false; // 标记拉动状态
     private Animator characterAnimator; // 引用角色动画
 
     void Start()

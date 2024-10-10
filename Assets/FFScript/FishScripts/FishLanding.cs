@@ -12,6 +12,7 @@ public class FishLanding : MonoBehaviour
     private FishStaminaBar staminaBar;
     private Canvas canvasComponent; // FishStaminaCanvas 上的 Canvas 组件
     private FishDragLine fishDragLine; // FishDragLine 组件
+    private Animator characterAnimator; // 场景中 Character 的 Animator 组件 
 
     private Collider waterSurfaceTriggerCollider; // WaterSurfaceTrigger 的碰撞体
     private bool isInWater = false; // 鱼是否在水中
@@ -65,6 +66,21 @@ public class FishLanding : MonoBehaviour
         else
         {
             Debug.LogError("FishStaminaCanvas is not assigned in the inspector.");
+        }
+
+        // 获取 Character 的 Animator 组件
+        GameObject character = GameObject.Find("Character");
+        if (character != null)
+        {
+            characterAnimator = character.GetComponent<Animator>();
+            if (characterAnimator == null)
+            {
+                Debug.LogError("Animator component not found on 'Character' GameObject.");
+            }
+        }
+        else
+        {
+            Debug.LogError("'Character' GameObject not found in the scene.");
         }
 
         // 开始延迟协程
@@ -121,6 +137,12 @@ public class FishLanding : MonoBehaviour
 
                 // 朝撤离点移动
                 transform.position += direction * moveSpeed * Time.deltaTime;
+
+                // 设置 Character 动画参数为 true
+                if (characterAnimator != null)
+                {
+                    characterAnimator.SetBool("IsDraging", true);
+                }
             }
             else
             {
@@ -129,6 +151,12 @@ public class FishLanding : MonoBehaviour
 
                 // 调用 fishDragLine.StopStruggling() 停止伸长绳子
                 fishDragLine.StopStruggling();
+
+                // 设置 Character 动画参数为 false
+                if (characterAnimator != null)
+                {
+                    characterAnimator.SetBool("IsDraging", false);
+                }
             }
 
             yield return null;

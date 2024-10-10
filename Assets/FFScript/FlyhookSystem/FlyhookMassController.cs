@@ -9,7 +9,7 @@ public class FlyhookMassController : MonoBehaviour
     public float waterMass = 0.5f;            // flyhook在水中的质量
     public float castingMass = 0.8f;          // flyhook在抛竿时的质量
     private Rigidbody flyhookRigidbody;       // flyhook的刚体组件
-    private bool isInWater = false;           // 标记flyhook是否在水中
+    public bool isInWater = false;           // 标记flyhook是否在水中
     private Animator characterAnimator;       // Character的动画组件
 
     void Start()

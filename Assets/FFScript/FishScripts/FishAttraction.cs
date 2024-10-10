@@ -14,7 +14,7 @@ public class FishAttraction : MonoBehaviour
     public float BiteChance = 0.5f; // ÓãÒ§¹³µÄ¸ÅÂÊ£¨·¶Î§£º0-1£©
 
     private SplineAnimate splineAnimate;
-    private bool isAttracted = false;
+    public bool isAttracted = false;
     private bool isReturning = false;
     private float attractionTimer = 0f;
     private Transform currentTarget;
