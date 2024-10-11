@@ -113,6 +113,32 @@ public class FishStaminaBar : MonoBehaviour
         {
             currentStamina = 0;
             fishStaminaBar.value = currentStamina;
+
+            // 检查是否已达到最大充能次数
+            if (currentRechargeTimes >= rechargeTimes)
+            {
+                // 禁用耐力条的 UI 组件
+                DisableStaminaBarUI();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 禁用耐力条的 UI 组件，使其在游戏中不再显示。
+    /// </summary>
+    private void DisableStaminaBarUI()
+    {
+        if (fishStaminaBar != null)
+        {
+            // 禁用 Slider 组件的 GameObject
+            fishStaminaBar.gameObject.SetActive(false);
+
+            // 可选：添加日志以调试
+            Debug.Log("耐力条 UI 已被禁用，因为达到最大充能次数并且耐力条被清零。");
+        }
+        else
+        {
+            Debug.LogWarning("fishStaminaBar 尚未被赋值。");
         }
     }
 }

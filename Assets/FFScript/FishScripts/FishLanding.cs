@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement; // 引入 SceneManager 命名空间
 
 public class FishLanding : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class FishLanding : MonoBehaviour
     private Animator characterAnimator; // 场景中 Character 的 Animator 组件 
 
     private Collider waterSurfaceTriggerCollider; // WaterSurfaceTrigger 的碰撞体
+    private Collider fishLandPointCollider; // FishLandPoint 的碰撞体
     private bool isInWater = false; // 鱼是否在水中
 
     private void Start()
@@ -48,6 +50,21 @@ public class FishLanding : MonoBehaviour
         else
         {
             Debug.LogError("'WaterSurfaceTrigger' GameObject not found in the scene.");
+        }
+
+        // 获取 FishLandPoint 的碰撞体
+        GameObject fishLandPoint = GameObject.Find("FishLandPoint");
+        if (fishLandPoint != null)
+        {
+            fishLandPointCollider = fishLandPoint.GetComponent<Collider>();
+            if (fishLandPointCollider == null)
+            {
+                Debug.LogError("Collider component not found on 'FishLandPoint' GameObject.");
+            }
+        }
+        else
+        {
+            Debug.LogError("'FishLandPoint' GameObject not found in the scene.");
         }
 
         // 获取 FishStaminaCanvas 上的 Canvas 组件
@@ -170,6 +187,12 @@ public class FishLanding : MonoBehaviour
         {
             isInWater = true;
         }
+
+        // 新增判定：检测是否与 FishLandPoint 发生碰撞
+        if (other == fishLandPointCollider)
+        {
+            LoadNextScene();
+        }
     }
 
     // 当鱼的碰撞体退出触发器时调用
@@ -178,6 +201,25 @@ public class FishLanding : MonoBehaviour
         if (other == waterSurfaceTriggerCollider)
         {
             isInWater = false;
+        }
+    }
+
+    // 加载下一个场景的方法
+    private void LoadNextScene()
+    {
+        // 获取当前活动场景
+        Scene currentScene = SceneManager.GetActiveScene();
+        // 计算下一个场景的索引
+        int nextSceneIndex = currentScene.buildIndex + 1;
+
+        // 检查下一个场景是否存在于构建设置中
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            Debug.LogError("No next scene found. Please ensure the next scene is added to the Build Settings.");
         }
     }
 }
